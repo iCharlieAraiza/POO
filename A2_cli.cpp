@@ -68,8 +68,5 @@ int main()
         b[i].imprimirDatos();
     }
     
-    //Se borra en memoria
-    delete b;
-    
     return 0;
 }
