@@ -23,8 +23,7 @@ class Cliente
     }
   
    //Método setter
-    void agregarSaldo(float saldo)
-    {
+    void agregarSaldo(float saldo){
        this->saldo = saldo;
     }
     
@@ -73,6 +72,5 @@ int main()
             b[i].imprimirDatos();
         }
     }
-    
     return 0;
 }
