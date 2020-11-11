@@ -4,16 +4,15 @@ using namespace std;
 
 int id = 0;
 
-class Cliente 
-{ 
-    int cuenta; 
-    string nombre; 
-    string apellido; 
+class Cliente
+{
+    int cuenta;
+    string nombre;
+    string apellido;
     string tipoCuenta;
     float saldo;
 
-    public: 
-    
+    public:
     //Constructor
     Cliente(){}
   
@@ -24,10 +23,10 @@ class Cliente
     }
   
    //Método setter
-    void agregarSaldo(float saldo) 
-    { 
+    void agregarSaldo(float saldo)
+    {
        this->saldo = saldo;
-    } 
+    }
     
     //Método getter
     float regresarSaldo(){
@@ -41,7 +40,7 @@ class Cliente
 };
 
 int main()
-{   
+{
     Cliente* b = new Cliente[3];
     
     string nombre, apellido;
@@ -49,18 +48,20 @@ int main()
     
     for(int i = 0; i<3; i++){
         
+        //Manejo de Excepciones
+        
         try{
             cout<<"Escribe el nombre"<<endl;
             cin>>nombre;
             cout<<"Escribe el apellido"<<endl;
             cin>>apellido;
-            
             cout<<endl;
+            
+            b[i] = Cliente(nombre, apellido);
         }catch(int e){
             cout << e << endl;
         }
         
-        b[i] = Cliente(nombre, apellido);
     }
     
     cout<<"Clientes del banco"<<endl<<"=============="<<endl;
