@@ -63,11 +63,11 @@ int main()
         
     }
     
-    cout<<"¿Deseas imprimir la información del cliente? (Escriba sí)"<<endl;
+    cout<<"¿Deseas imprimir la información de los clientes? (Escriba sí)"<<endl;
     cin>>imprimir;
     
     if(imprimir=="Sí" || imprimir=="sí" || imprimir=="si" || imprimir=="Si"){
-        cout<<"Clientes del banco"<<endl<<"=============="<<endl;
+        cout<<endl<<"Clientes del banco"<<endl<<"=============="<<endl;
         for(int i=0; i<3; i++){
             b[i].imprimirDatos();
         }
