@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 using namespace std;
@@ -83,4 +82,5 @@ int main()
     cout<<endl<<"El área total de la figura es: "<<figura.getArea()<<endl; 
 
 
-   }
+    return 0;
+}
