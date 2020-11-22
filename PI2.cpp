@@ -134,7 +134,7 @@ class GestorControlEscolar{
     Profesor profesores[4];
     Materia materia[4];
     Alumno alumno[4];
-    
+ 
     public:
 
     void agregarProfesores(){
