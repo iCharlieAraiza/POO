@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 
 using namespace std;
 
@@ -49,6 +51,10 @@ class Cliente : public Persona{
         this->tipo_cliente = tipo_cliente;
     }
     
+    void setDireccion(string direccion){
+        this->direccion = direccion;
+    }
+    
     
     int getCuenta(){
         return cuenta;
@@ -57,8 +63,10 @@ class Cliente : public Persona{
     string getTipoCliente(){
         return tipo_cliente;
     }
+
     
     void getDatosCliente(){
+        cout<<endl<<"Impresion de datos del clienta"<<endl<<endl;
         cout<<"Nombre: " <<getNombre() <<endl<< "Apellido: "<< getApellido() 
         <<endl<<"Edad: "<< getEdad() <<" Cuenta: "<< getTipoCliente() <<endl
         << "Cuenta: "<< getCuenta() <<endl << "Tipo de cliente: "<< getTipoCliente()<<endl;
@@ -67,13 +75,13 @@ class Cliente : public Persona{
 };
 
 class Empleado : public Persona{
-    int identificador;
+    string identificador;
     string puesto;
     string area;
     
     public:
     
-    void setIdentidficador(int identificador){
+    void setIdentidficador(string identificador){
         this->identificador = identificador;
     }
     
@@ -85,7 +93,7 @@ class Empleado : public Persona{
         this->area = area;
     }
     
-    int getIdentificador(){
+    string getIdentificador(){
         return identificador;
     }
     
@@ -97,22 +105,85 @@ class Empleado : public Persona{
         return area;
     }
     
+    void getDatos(){
+        cout<<endl<<"Impresion de datos del Empleado"<<endl<<endl;
+        cout<<"Nombre: " <<getNombre() <<endl<< "Apellido: "<< getApellido() 
+        <<endl<<"Edad: "<< getEdad() <<" Número de Empleado: "<< getIdentificador() <<endl
+        << "puesto: "<< getPuesto() <<endl << "Area: "<< getArea()<<endl;
+    }
+    
 };
 
 
 int main()
 {
 
+    string direccion;
+    string nombre;
+    string apellido;
+    int edad;
+    int cuenta;
+    string tipo_cliente;
+    string n_empleado;
+    string puesto;
+    string area;
+    
+    
+    cout <<"Registro del cliente"<<endl<<"**********************"<<endl<<endl;
+    
+    cout<<"Escribe el nombre: "<<endl;
+    getline(cin, nombre);
+    cout<<"Escribe los apellidos: "<<endl;
+    getline(cin, apellido);
+    cout<<"Escribe la edad: "<<endl;
+    cin>>edad;
+    cout<<"Escribe la cuenta: "<<endl;
+    cin>>cuenta;
+    cout<<"Escribe la dirección: "<<endl;
+    cin>>direccion;
+    cout<<"Escribe el tipo de cuenta: "<<endl;
+    cin>>tipo_cliente;
+ 
+ 
+    
     Cliente cliente = Cliente();
     
-    cliente.setNombre("Juanito");
-    cliente.setApellido("Apellido");
-    cliente.setEdad(30);
-    cliente.setTipoCliente("preferente");
-    cliente.setCuenta(122312);
+    cliente.setNombre(nombre);
+    cliente.setApellido(apellido);
+    cliente.setEdad(edad);
+    cliente.setTipoCliente(tipo_cliente);
+    cliente.setCuenta(cuenta);
+    
+    
+    
+    cout <<endl<<"Registro del Personal"<<endl<<"**********************"<<endl<<endl;
+    
+    cout<<"Escribe el nombre: "<<endl;
+    cin>> nombre;
+    cout<<"Escribe el apellido: "<<endl;
+    cin>>apellido;
+    cout<<"Escribe la edad: "<<endl;
+    cin>>edad;
+    cout<<"Escribe númeor de Empleado: "<<endl;
+    cin>>n_empleado;
+    cout<<"Escribe el puesto: "<<endl;
+    cin>>puesto;
+    cout<<"Escribe el área: "<<endl;
+    cin>>area;
+    
+    Empleado empleado = Empleado();
+    
+    empleado.setNombre(nombre);
+    empleado.setApellido(apellido);
+    empleado.setEdad(edad);
+    empleado.setIdentidficador(n_empleado);
+    empleado.setArea(area);
+    empleado.setPuesto(puesto);
+    
+    
     cliente.getDatosCliente();
+    empleado.getDatos();
     
-    
-
     return 0;
 }
+
