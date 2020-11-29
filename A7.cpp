@@ -66,7 +66,7 @@ class Cliente : public Persona{
 
     
     void getDatosCliente(){
-        cout<<endl<<"Impresion de datos del clienta"<<endl<<endl;
+        cout<<endl<<"Impresión de datos del cliente"<<endl<<endl;
         cout<<"Nombre: " <<getNombre() <<endl<< "Apellido: "<< getApellido() 
         <<endl<<"Edad: "<< getEdad() <<" Cuenta: "<< getTipoCliente() <<endl
         << "Cuenta: "<< getCuenta() <<endl << "Tipo de cliente: "<< getTipoCliente()<<endl;
@@ -106,7 +106,7 @@ class Empleado : public Persona{
     }
     
     void getDatos(){
-        cout<<endl<<"Impresion de datos del Empleado"<<endl<<endl;
+        cout<<endl<<"Impresión de datos del Empleado"<<endl<<endl;
         cout<<"Nombre: " <<getNombre() <<endl<< "Apellido: "<< getApellido() 
         <<endl<<"Edad: "<< getEdad() <<" Número de Empleado: "<< getIdentificador() <<endl
         << "puesto: "<< getPuesto() <<endl << "Area: "<< getArea()<<endl;
@@ -118,7 +118,7 @@ class Empleado : public Persona{
 int main()
 {
 
-    string direccion;
+    char direccion[15];
     string nombre;
     string apellido;
     int edad;
@@ -164,7 +164,7 @@ int main()
     cin>>apellido;
     cout<<"Escribe la edad: "<<endl;
     cin>>edad;
-    cout<<"Escribe númeor de Empleado: "<<endl;
+    cout<<"Escribe número de Empleado: "<<endl;
     cin>>n_empleado;
     cout<<"Escribe el puesto: "<<endl;
     cin>>puesto;
@@ -186,4 +186,3 @@ int main()
     
     return 0;
 }
-
