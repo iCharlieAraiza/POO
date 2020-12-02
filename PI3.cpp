@@ -106,7 +106,7 @@ public:
 class Alumno : public Usuario{
     string matricula;
     int semestre;
-    Materia materias[3];
+    Materia materias[2];
     string carrera;
     
     public:
@@ -125,6 +125,15 @@ class Alumno : public Usuario{
     int getSemestre(){return semestre;}
     string getCarrera(){return carrera;}
     void setCarrera(string carrera){this->carrera = carrera;}
+    void setMaterias(Materia materias[2]){
+        for(int i = 0; i<2; i++){
+            this->materias[i] = materias[i];
+        }
+    }
+    
+    Materia* getMaterias(){
+        return materias;
+    }
 };
  
 /**
@@ -134,10 +143,11 @@ class Alumno : public Usuario{
 
 class GestorControlEscolar{
     Profesor profesores[4];
-    Materia materia[4];
+    Materia materia[2];
     Alumno alumno[4];
     list<Profesor> profesores_l;
     list<Materia> materia_l;
+    list<Alumno> alumno_l;
 
     public:
 
@@ -183,6 +193,7 @@ class GestorControlEscolar{
         int id = 0;
         Profesor profesor_asignado;
         
+        cout<<endl;
         cout<<"**********************"<<endl;
         cout<<"  Registrar materia"<<endl;
         cout<<"**********************"<<endl<<endl;
@@ -246,24 +257,32 @@ class GestorControlEscolar{
             cout<<"-Agrega carrera: "<<endl;
             cin>>carrera;
             
-            cout<<endl;
-            alumno[i] = Alumno(nombre, apellido, edad, sexo, matricula, semestre);
-            alumno[i].setCarrera(carrera);
+            int id=0;
             
+            cout<<endl<<"**********************"<<"Elige la materia a asignar por ID"<<"**********************"<<endl;
+            imprimirMaterias();
+            for(int i=0; i<2; i++){
+                do{
+                    cout<<"Materia "<<i+1<<": ";
+                    cin >>id;
+                    materia[i] = getMateria(id);
+                        
+                    if(id<0 || id>2){
+                        cout<<endl<<"Ups! Has agregado una opción no válida. Vuélvelo a intentar"<<endl;
+                    }
+                }while(id<0 || id>2);
+            }
+            
+            cout<<endl;
+            Alumno alumno = Alumno(nombre, apellido, edad, sexo, matricula, semestre);
+            alumno.setCarrera(carrera);
+            alumno.setMaterias(materia);
+            alumno_l.push_back(alumno);
         }
     }
     
     
     Profesor getProfesor(int id){
-        /*
-        Profesor profesor_elegido;
-        for(int i= 0; i<2; i++){
-            if(profesores[i].getID()==id){
-                return profesores[i];
-            }
-        }
-        return profesor_elegido;
-       */
         
         Profesor profesor_elegido;
         list <Profesor> :: iterator it;
@@ -301,14 +320,8 @@ class GestorControlEscolar{
         list <Materia> :: iterator it;
         bool encontrado = false;
         for(it = materia_l.begin(); it != materia_l.end(); ++it){
-            cout<<endl<<"************************";
             cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" Profesor: asignado"<<it->getProfesor().getNombre()<<endl;
             encontrado = true;
-        }
-        
-        
-        for(int i = 0; i<3; i++){
-            cout<<"ID: "<<materia[i].getID()<<" Nombre: "<<materia[i].getNombre()<<" Profesor asignado: "<<materia[i].getProfesor().getNombre()<<" "<<materia[i].getProfesor().getNombre()<<endl;
         }
     }
     
@@ -323,9 +336,15 @@ class GestorControlEscolar{
     }
     
     void imprimirAlumnos(){
-        for(int i = 0; i<2; i++){
-            cout <<"ID: "<<alumno[i].getID()<<" Nombre: "<< alumno[i].getNombre()<<" "<<alumno[i].getApellido()<<endl;
+        
+        list <Alumno> :: iterator it;
+        bool encontrado = false;
+        for(it = alumno_l.begin(); it != alumno_l.end(); ++it){
+            cout<<endl<<"************************";
+            cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" "<<it->getApellido()<< " Edad: "<<it->getEdad()<< " Carrera: "<< it->getCarrera() <<endl;
+            encontrado = true;
         }
+        
     }
     
     
@@ -341,19 +360,21 @@ class GestorControlEscolar{
     }
     
     void imprimirAlumno(int id){
-        bool encontrado = false;
-        for(int i = 0; i<2; i++){
-            if(alumno[i].getID() == id){
-                cout<<endl<<"************************";
-                cout <<endl<<"ID: "<<alumno[i].getID()<<" Nombre del alumno: "<< alumno[i].getNombre()<<" Semestre: "<<alumno[i].getApellido()<<alumno[i].getSemestre()<<" Carrera: "<< alumno[i].getCarrera() <<endl;
-                encontrado = true;
-                break;
+        list <Alumno> :: iterator it;
+        for(it = alumno_l.begin(); it != alumno_l.end(); ++it){
+            if(id==it->getID()){
+                cout<<endl<<"*******************"<<"Registro del Alumno"<<"*******************"<<endl;
+                cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" "<<it->getApellido()<< " Edad: "<<it->getEdad()<< " Carrera: "<< it->getCarrera() <<endl;
+                /*
+                Materia* materias_alumno = it->getMaterias();
+                for (int i =0; i<2; i++) {
+                    cout<<"ID: "<< materias_alumno[i].getID()<<" Nombre: "<<materias_alumno[i].getNombre() << " Créditos: "
+                    <<materias_alumno[i].getCreditos() << " Profesor asignado: "<< materias_alumno[i].getProfesor().getNombre() <<" "<<materias_alumno[i].getProfesor().getApellido()<<endl;
+                }*/
             }
         }
-        
-        if(!encontrado)
-            cout<<"No se ha encontrado el registro"<<endl;
     }
+        
     
     void imprimirMateria(int id){
         bool encontrado = false;
@@ -383,8 +404,30 @@ class GestorControlEscolar{
 };
 
 
+void showlist(list <int> g)
+{
+    list <int> :: iterator it;
+    for(it = g.begin(); it != g.end(); ++it)
+        cout << '\t' << *it;
+    cout << '\n';
+};
+
+void showlist(list <Profesor> g)
+{
+    list <Profesor> :: iterator it;
+    bool encontrado = false;
+    for(it = g.begin(); it != g.end(); ++it){
+        cout<<endl<<"************************";
+        cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" "<<it->getApellido()<< " Edad: "<<it->getEdad()<<endl;
+        encontrado = true;
+    }
+};
+  
+
+
 int main()
-{   
+{
+    
     GestorControlEscolar gestorControlEscolar = GestorControlEscolar();
     int id;
     
@@ -404,5 +447,9 @@ int main()
     
     gestorControlEscolar.imprimirMateria(id);
     
+    gestorControlEscolar.agregarAlumno();
+    gestorControlEscolar.imprimirAlumno(1);
+ 
     return 0;
 }
+
