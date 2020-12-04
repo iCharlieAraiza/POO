@@ -125,7 +125,7 @@ class Alumno : public Usuario{
     int getSemestre(){return semestre;}
     string getCarrera(){return carrera;}
     void setCarrera(string carrera){this->carrera = carrera;}
-    void setMaterias(Materia materias[2]){
+    void setMaterias(Materia materias[3]){
         for(int i = 0; i<2; i++){
             this->materias[i] = materias[i];
         }
@@ -166,8 +166,8 @@ class GestorControlEscolar{
         
         cout<<"Restricciones:"<<endl<<"1. No se pueden agregar espacios. "<<endl<<"2. Agregar solo números enteros donde se pida"<<endl<<endl;
         
-        for(int i = 0; i<2; i++){
-            cout<<"Registro número: "<<i+1<<endl;
+        for(int i = 0; i<3; i++){
+            cout<<"Registro número (ID): "<<i<<endl;
             cout<<"- Agrega el nombre: "<<endl;
             cin>>nombre;
             cout<<"- Agrega el apellido: "<<endl;
@@ -198,8 +198,8 @@ class GestorControlEscolar{
         cout<<"  Registrar materia"<<endl;
         cout<<"**********************"<<endl<<endl;
     
-        for(int i=0; i<3; i++){
-            cout<<"Registro número: "<<i+1<<endl;
+        for(int i=0; i<4; i++){
+            cout<<"Registro número (ID): "<<i<<endl;
             cout<<"-Escribe el nombre de la materia:"<<endl;
             cin>>nombre;
             cout<<"-Escribe los créditos (número entero): "<<endl;
@@ -210,7 +210,7 @@ class GestorControlEscolar{
                 imprimirProfesores();
                 try{
                     cin>>id;
-                    if(id < 0 || id >1){
+                    if(id < 0 || id >3){
                         cout<<"Ups! Has agregado una opción no válida";
                     }else{
                         profesor_asignado = getProfesor(id);
@@ -220,7 +220,7 @@ class GestorControlEscolar{
                     cout<<"Error, valor inválido"<<endl;
                     id = 0;
                 }
-            }while(id < 0 || id >1);
+            }while(id < 0 || id >3);
             cout<<endl;
             
             materia_l.push_back(Materia(nombre, creditos,profesor_asignado));
@@ -240,10 +240,10 @@ class GestorControlEscolar{
         cout<<"  Registrar alumno"<<endl;
         cout<<"**********************"<<endl<<endl;
         
-        for(int i = 0; i<2; i++){
-            Materia materiaArray[2];
+        for(int i = 0; i<3; i++){
+            Materia materiaArray[3];
             
-            cout<<"Registro número: "<<i+1<<endl;
+            cout<<"Registro número (ID): "<<i<<endl;
             cout<<"-Agrega el nombre: "<<endl;
             cin>>nombre;
             cout<<"-Agrega el apellido: "<<endl;
@@ -263,18 +263,17 @@ class GestorControlEscolar{
             
             cout<<endl<<"**********************"<<"Elige la materia a asignar por ID"<<"**********************"<<endl;
             imprimirMaterias();
-            for(int i=0; i<2; i++){
+            for(int i=0; i<3; i++){
                 do{
                     cout<<endl<<"Materia "<<i+1<<": ";
                     cin >>id;
                         
-                    if(id<0 || id>2){
+                    if(id<0 || id>3){
                         cout<<endl<<"Ups! Has agregado una opción no válida. Vuélvelo a intentar"<<endl;
                     }else{
                         materiaArray[i] = getMateria(id);
-                        //cout<<"===========**"<<materiaArray[i].getNombre()<<endl;
                     }
-                }while(id<0 || id>2);
+                }while(id<0 || id>3);
             }
             
             cout<<endl;
@@ -328,7 +327,7 @@ class GestorControlEscolar{
         list <Materia> :: iterator it;
         bool encontrado = false;
         for(it = materia_l.begin(); it != materia_l.end(); ++it){
-            cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" Profesor: asignado"<<it->getProfesor().getNombre()<<endl;
+            cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" Profesor asignado: "<<it->getProfesor().getNombre()<<endl;
             encontrado = true;
         }
     }
@@ -358,10 +357,15 @@ class GestorControlEscolar{
     
     
     void imprimirProfesor(int id){
+        if(id<0 || id >2){
+            cout<<"Ups! Has agregado una opción no válida"<<endl;
+            return;
+        }
         
         list <Profesor> :: iterator it;
         for(it = profesores_l.begin(); it != profesores_l.end(); ++it){
             if(id==it->getID()){
+                cout<<endl<<"*******************"<<"Registro del Maestro"<<"*******************"<<endl;
                 cout <<endl<<"ID: "<<it->getID()<<" Nombre: "<< it->getNombre()<<" "<<it->getApellido()<< " Edad: "<<it->getEdad()<<" Profesión: "<<it->getProfesion() <<endl;
             }
         }
@@ -369,6 +373,11 @@ class GestorControlEscolar{
     }
     
     void imprimirAlumno(int id){
+        if(id<0 || id >2){
+            cout<<"Ups! Has agregado una opción no válida"<<endl;
+            return;
+        }
+                
         list <Alumno> :: iterator it;
         for(it = alumno_l.begin(); it != alumno_l.end(); ++it){
             if(id==it->getID()){
@@ -386,26 +395,20 @@ class GestorControlEscolar{
         
     
     void imprimirMateria(int id){
+        if(id<0 || id >3){
+            cout<<"Ups! Has agregado una opción no válida"<<endl;
+            return;
+        }
         bool encontrado = false;
         list <Materia> :: iterator it;
         for(it = materia_l.begin(); it != materia_l.end(); ++it){
             if(id==it->getID()){
-                cout<<endl<<"************************";
+                cout<<endl<<"*******************"<<"Registro de la materia"<<"*******************"<<endl;
                 cout <<endl<<"ID: "<<it->getID()<<" Nombre de la materia:  "<<it->getNombre()<< " Profesor asignado: "<<it->getProfesor().getNombre() <<" "<< it->getProfesor().getApellido()<<endl;
                 encontrado = true;
             }
         }
-        /*
-        bool encontrado = false;
-        for(int i = 0; i<2; i++){
-            if(materia[i].getID() == id){
-                cout<<endl<<"************************";
-                cout <<endl<<"ID: "<<materia[i].getID()<<" Nombre de la materia: "<< materia[i].getNombre()<<" Créditos: : "<<materia[i].getCreditos()<< " Profesor asignado: "<<materia[i].getProfesor().getNombre() <<" "<< materia[i].getProfesor().getApellido()<<endl;
-                encontrado = true;
-                break;
-            }
-        }
-        */
+
         if(!encontrado)
             cout<<"No se ha encontrado el registro con ese ID"<<endl;
     }
@@ -438,27 +441,58 @@ int main()
 {
     
     GestorControlEscolar gestorControlEscolar = GestorControlEscolar();
-    int id;
+    int id, op;
+    bool terminar = false;
     
     gestorControlEscolar.agregarProfesores();
-    
-    
-    
-    cout <<"Escribe el ID del profesor que deseas buscar (núnmero entero)"<<endl;
-    cin>>id;
-    
-    gestorControlEscolar.imprimirProfesor(id);
-    
     gestorControlEscolar.agregarMateria();
-    
-    cout <<"Escribe el ID de la materia que deseas buscar (núnmero entero)"<<endl;
-    cin>>id;
-    
-    gestorControlEscolar.imprimirMateria(id);
-    
     gestorControlEscolar.agregarAlumno();
-    gestorControlEscolar.imprimirAlumno(1);
     
+    cout<<"It works!"<<endl;
 
+    
+    do{
+        cout<<endl<<endl<<"Elige la opción deseada: "<<endl<<"Visualizar:"<<endl<<"1. Profesor"<<endl<<"2. Materia"<<endl<<"3. Alumno"<<endl<<"4. Salir"<<endl;
+        
+        do{
+            try{
+                cin>>op;
+            }catch(int e){
+                cout<<"Error, valor inválido"<<endl;
+                break;
+            }
+            if(op<1 || op>4){
+                cout<<"Ups! Has agregado un valor no válido"<<endl;
+            }
+        }while(op<1 || op>4);
+        
+        if(op>0 && op<4){
+            cout<<"Escribe el ID: "<<endl;
+            cin>>id;
+        }
+        
+        switch (op) {
+            case 1:
+                gestorControlEscolar.imprimirProfesor(id);
+                break;
+            case 2:
+                gestorControlEscolar.imprimirMateria(id);
+                break;
+            case 3:
+                gestorControlEscolar.imprimirAlumno(id);
+                break;
+            case 4:
+                terminar = true;
+                cout<<"Adiós"<<endl;
+                break;
+            default:
+                cout<<"Ups! Has  agregado una opción no válida!"<<endl;
+                break;
+        }
+        
+        
+    }while (!terminar); 
+    
     return 0;
 }
+
