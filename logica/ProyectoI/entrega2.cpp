@@ -4,6 +4,9 @@
 
 using namespace std;
 
+int pos = 0;
+
+
 struct Alumno{
     int matricula;
     char nombre[30];
@@ -24,10 +27,11 @@ void pantallaEliminar();
 
 void agregarAlumno(struct Alumno alumnos[n], int);
 int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos);
+void eliminarAlumno(struct Alumno alumnos[n], int);
 
 int main()
 {
-    int op, pos = 0;
+    int op;
     int posResultado, matricula;
     struct Alumno alumnos[n];
     
@@ -56,6 +60,9 @@ int main()
                 break;
             case 4:
                 pantallaEliminar();
+                scanf("%d", &matricula);
+                eliminarAlumno(alumnos, matricula);
+                
                 break;
             case 5:
                 printf("Adios!");
@@ -103,7 +110,7 @@ void pantallaModificar(){
 }
 
 void pantallaEliminar(){
-    printf("Eliminación del alumno: \n\nIngresa la matricula del alumno: \n\n");
+    printf("Eliminación del alumno: \n\nIngresa la matricula del alumno: ");
 }
 
 
@@ -140,4 +147,18 @@ int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos){
         }    
     }
     return -1;
+}
+
+void eliminarAlumno(struct Alumno alumnos[n], int matricula){
+    int r_pos = getAlumnoPorMatricula(alumnos, matricula, pos);
+    if(r_pos!=-1){
+        for(int i=r_pos; i<n; i++){
+            if(i+1<n){
+                alumnos[i] = alumnos[i+1];
+            }
+        }
+        pos--;
+    }else{
+        printf("No se ha encontrado :( ");
+    }
 }
