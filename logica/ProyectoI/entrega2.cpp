@@ -50,7 +50,6 @@ int main()
                 posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
                 
                 if(posResultado == -1){
-                    
                     printf("No se ha encontrado :( \n");
                     printf("********************\n");
                 }else{
@@ -164,28 +163,29 @@ int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos){
 
 void eliminarAlumno(struct Alumno alumnos[n], int matricula){
     int r_pos = getAlumnoPorMatricula(alumnos, matricula, pos);
-    int op = 1;
+    if(r_pos==-1){
+        printf("No se ha encontrado :( \n");
+        return;
+    }
+    
+    int op;
     
     do{
         printf("¿Estás seguro de que deseas eliminar al estudiante? 1. Para si / 2. Para no\n");
         scanf("%d", &op);
         if(op < 1 || op>2 ){
             printf("Ups! Has elegido una opción no válida. Vuelve a intentarlo\n");
+        }if(op ==2){
+            return;
         }
-    }while(op < 1 || op>2 );
+    }while(op !=1);
     
-    if(op==2){
-        return;
-    }
+
     
-    if(r_pos!=-1){
-        for(int i=r_pos; i<n; i++){
-            if(i+1<n){
-                alumnos[i] = alumnos[i+1];
-            }
+    for(int i=r_pos; i<n; i++){
+        if(i+1<n){
+            alumnos[i] = alumnos[i+1];
         }
-        pos--;
-    }else{
-        printf("No se ha encontrado :( \n");
     }
+    pos--;
 }
