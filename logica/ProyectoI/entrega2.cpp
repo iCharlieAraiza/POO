@@ -21,7 +21,7 @@ struct Alumno{
 void pantallaInicio();
 void pantallaRegistro();
 void pantallaBusqueda();
-void pantallaResultadosBusqueda();
+void pantallaResultadosBusqueda(struct Alumno alumno);
 void pantallaModificar();
 void pantallaEliminar();
 
@@ -42,7 +42,7 @@ int main()
         switch(op){
             case 1:
                 agregarAlumno(alumnos, pos++);
-                cout<<"Estudiante "<<alumnos[0].nombre<<endl;
+                printf("\n");
                 break;
             case 2:
                 pantallaBusqueda();
@@ -50,10 +50,13 @@ int main()
                 posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
                 
                 if(posResultado == -1){
-                    cout<<"No se ha encontrado :("<<endl;
+                    
+                    printf("No se ha encontrado :( \n");
+                    printf("********************\n");
                 }else{
-                    cout<<"Se ha encontrado! "<<endl;
+                    pantallaResultadosBusqueda(alumnos[posResultado]);
                 }
+                printf("\n");
                 break;
             case 3: 
                 pantallaModificar();
@@ -62,7 +65,7 @@ int main()
                 pantallaEliminar();
                 scanf("%d", &matricula);
                 eliminarAlumno(alumnos, matricula);
-                
+                printf("\n");
                 break;
             case 5:
                 printf("Adios!");
@@ -101,8 +104,16 @@ void pantallaBusqueda(){
     printf("Busqueda de alumno: \n\nIngresa la matricula del alumno: ");
 }
 
-void pantallaResultadosBusqueda(){
-    printf("Resultados de la consulta: \n\nNombre: \nApellido paterno: \nApellido materno: \nCarrera: \nSemestre: \n\n");
+void pantallaResultadosBusqueda(struct Alumno alumno){
+    //printf("Resultados de la consulta: \n\nNombre: \nApellido paterno: \nApellido materno: \nCarrera: \nSemestre: \n\n");
+    printf("******************\n");
+    printf("Resultados de la consulta: \n\n");
+    printf("Nombre: %s \n", alumno.nombre);
+    printf("Apellido paterno: %s \n", alumno.apellido_p);
+    printf("Apellido materno: %s \n", alumno.nombre);
+    printf("Carrera: %s \n", alumno.carrera);
+    printf("Semestre: %d \n", alumno.semestre);
+    printf("Email: %s \n", alumno.email);
 }
 
 void pantallaModificar(){
@@ -110,6 +121,7 @@ void pantallaModificar(){
 }
 
 void pantallaEliminar(){
+    printf("******************\n");
     printf("Eliminación del alumno: \n\nIngresa la matricula del alumno: ");
 }
 
@@ -138,6 +150,7 @@ void agregarAlumno(struct Alumno alumnos[n], int pos){
     scanf("%d", &alumno.semestre);
     
     alumnos[pos] = alumno;
+    printf("\nSe ha agregado correctamente\n");
 }
 
 int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos){
@@ -151,6 +164,20 @@ int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos){
 
 void eliminarAlumno(struct Alumno alumnos[n], int matricula){
     int r_pos = getAlumnoPorMatricula(alumnos, matricula, pos);
+    int op = 1;
+    
+    do{
+        printf("¿Estás seguro de que deseas eliminar al estudiante? 1. Para si / 2. Para no\n");
+        scanf("%d", &op);
+        if(op < 1 || op>2 ){
+            printf("Ups! Has elegido una opción no válida. Vuelve a intentarlo\n");
+        }
+    }while(op < 1 || op>2 );
+    
+    if(op==2){
+        return;
+    }
+    
     if(r_pos!=-1){
         for(int i=r_pos; i<n; i++){
             if(i+1<n){
@@ -159,6 +186,6 @@ void eliminarAlumno(struct Alumno alumnos[n], int matricula){
         }
         pos--;
     }else{
-        printf("No se ha encontrado :( ");
+        printf("No se ha encontrado :( \n");
     }
 }
