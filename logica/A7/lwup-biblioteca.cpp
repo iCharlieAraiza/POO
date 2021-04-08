@@ -1,3 +1,11 @@
+/**
+
+    ****Aclaración********
+
+    Los programas corren correctamente desde www.onlinegdb.com/online_c++_compiler o en compiladores estándares de C/C++. En compiladores propietarios como los de Borland o Dev C++, puede que no funcionen correctamente.
+
+**/
+
 #include <stdio.h>
 #include <ctype.h>
 
