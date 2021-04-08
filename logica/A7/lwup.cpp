@@ -38,22 +38,20 @@ int main()
 
 
 void mayusculas(char cadena[]){
-    char final[50];
-    int cont= 0;
-    
-    for(int i = 0; cadena[i]!='\0'; i++ ){
-        final[i] = cadena[i] >= 97 ? cadena[i]-32 : cadena[i];
-    }
-    printf("%s", final);
+   for (int i = 0; cadena[i]!='\0'; i++) {
+      if(cadena[i] >= 'a' && cadena[i] <= 'z') {
+         cadena[i] = cadena[i] - 32;
+      }
+   }
+    printf("%s", cadena);
 }
 
 
 void minusculas(char cadena[]){
-    char final[50];
-    int cont= 0;
-    
-    for(int i = 0; cadena[i]!='\0'; i++ ){
-        final[i] = cadena[i] <= 90 && cadena[i]>32 ? cadena[i]+32 : cadena[i];
-    }
-    printf("%s", final);
+   for (int i = 0; cadena[i]!='\0'; i++) {
+      if(cadena[i] >= 'A' && cadena[i] <= 'Z') {
+         cadena[i] = cadena[i] + 32;
+      }
+   }
+   printf("%s", cadena);
 }
