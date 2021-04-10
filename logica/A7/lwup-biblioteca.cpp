@@ -16,20 +16,26 @@ int main()
     
     printf("Escribe algo (máximo 50 caracteres): \n");
     scanf(" %[^\n]s",cadena);
+    printf("\n");
 
-    printf("Elige la opción:\n1) Convertir a mayuscula  2) Convertir a minusculas\n");
-    scanf("%d", &op);
-    
-    if(op == 1){
-        for(int i = 0; cadena[i] != '\0'; i++){
-            printf("%c", toupper(cadena[i]));
+    do{
+        printf("Elige la opción:\n1) Convertir a mayuscula  2) Convertir a minusculas  3) Salir\n");
+        scanf("%d", &op);
+        
+        if(op == 1){
+            for(int i = 0; cadena[i] != '\0'; i++){
+                printf("%c", toupper(cadena[i]));
+            }
+        }else if(op == 2){
+            for(int i = 0; cadena[i] != '\0'; i++){
+                printf("%c", tolower(cadena[i]));
+            }   
+        }else if(op==3){
+            printf("Adios.");
+        }else{
+            printf("Ups! Has elegido un valor no válido.");
         }
-    }else if(op == 2){
-        for(int i = 0; cadena[i] != '\0'; i++){
-            printf("%c", tolower(cadena[i]));
-        }   
-    }else{
-        printf("Ups! Has elegido un valor no válido.");
-    }
+        printf("\n\n");
+    }while(op!=3);
     return 0;
 }
