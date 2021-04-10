@@ -21,17 +21,23 @@ int main()
     
     printf("Escribe algo (máximo 50 caracteres): \n");
     scanf(" %[^\n]s",cadena);
-
-    printf("Elige la opción:\n1) Convertir a mayuscula  2) Convertir a minusculas\n");
-    scanf("%d", &op);
+    printf("\n");
     
-    if(op == 1){
-        mayusculas(cadena);
-    }else if(op == 2){
-        minusculas(cadena);
-    }else{
-        printf("Ups! Has elegido un valor no válido.");
-    }
+    do{
+        printf("Elige la opción:\n1) Convertir a mayuscula  2) Convertir a minusculas 3) Salir\n");
+        scanf("%d", &op);
+        
+        if(op == 1){
+            mayusculas(cadena);
+        }else if(op == 2){
+            minusculas(cadena);
+        }else if(op == 3){
+            printf("Adios.");
+        }else{
+            printf("Ups! Has elegido un valor no válido.");
+        }
+        printf("\n\n");
+    }while(op!=3);
 
     return 0;
 }
