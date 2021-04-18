@@ -28,6 +28,8 @@ void pantallaEliminar();
 void agregarAlumno(struct Alumno alumnos[n], int);
 int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos);
 void eliminarAlumno(struct Alumno alumnos[n], int);
+void modificar(struct Alumno alumnos[n]);
+void mostrarAlumnos(struct Alumno alumnos[n]);
 
 int main()
 {
@@ -51,44 +53,11 @@ int main()
                 printf("\n");
                 break;
             case 3: 
-                pantallaBusqueda();
-                scanf("%d", &matricula);
-                posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
-                //pantallaModificar();
-                
-                if(posResultado!=-1){
-                    printf("\nResultado:\n======================\n");
-                    printf("matricula: %d \n", alumnos[posResultado].matricula);
-                    printf("Nombre: %s \n", alumnos[posResultado].nombre);
-                    printf("Apellido paterno: %s \n", alumnos[posResultado].apellido_p);
-                    printf("Apellido materno: %s \n", alumnos[posResultado].nombre);
-                    printf("Carrera: %s \n", alumnos[posResultado].carrera);
-                    printf("Semestre: %s \n", alumnos[posResultado].semestre);
-                    printf("Email: %s \n", alumnos[posResultado].email);
-                    printf("\n\n");
-                }else{
-                    printf("\nResultado:\n======================\n");
-                    printf("No se ha encontrado ningún alumno con esa matrícula");
-                    printf("\n\n");
-                }
-
+                modificar(alumnos);
                 //Pausa
                 break;
             case 4:
-                printf("Mostrar alumnos");
-            
-                for(int i = 0; i<pos; i++){
-                    printf("matricula: %d \n", alumnos[i].matricula);
-                    printf("Nombre: %s \n", alumnos[i].nombre);
-                    printf("Apellido paterno: %s \n", alumnos[i].apellido_p);
-                    printf("Apellido materno: %s \n", alumnos[i].nombre);
-                    printf("Carrera: %s \n", alumnos[i].carrera);
-                    printf("Semestre: %s \n", alumnos[i].semestre);
-                    printf("Email: %s \n", alumnos[i].email);
-                    
-                    printf("\n");
-                }
-                
+                mostrarAlumnos(alumnos);
                 break;
             case 5:
                 pantallaBusqueda();
@@ -154,7 +123,7 @@ void pantallaResultadosBusqueda(struct Alumno alumno){
 }
 
 void pantallaModificar(){
-        printf("Ingresa los datos a modificar: \n\nMatricula: \nNombre: \nApellido paterno: \nApellido materno: \nCarrera: \nSemestre: \n\n");
+    printf("Ingresa los datos a modificar: \n\nMatricula: \nNombre: \nApellido paterno: \nApellido materno: \nCarrera: \nSemestre: \n\n");
 }
 
 void pantallaEliminar(){
@@ -218,12 +187,83 @@ void eliminarAlumno(struct Alumno alumnos[n], int matricula){
         }
     }while(op !=1);
     
-
-    
     for(int i=r_pos; i<n; i++){
         if(i+1<n){
             alumnos[i] = alumnos[i+1];
         }
     }
     pos--;
+}
+
+void modificar(struct Alumno alumnos[n]){
+    
+    int matricula, op;
+    pantallaBusqueda();
+    scanf("%d", &matricula);
+    int posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
+    //pantallaModificar();
+    
+    if(posResultado!=-1){
+        printf("\nResultado:\n======================\n");
+        printf("matricula: %d \n", alumnos[posResultado].matricula);
+        printf("Nombre: %s \n", alumnos[posResultado].nombre);
+        printf("Apellido paterno: %s \n", alumnos[posResultado].apellido_p);
+        printf("Apellido materno: %s \n", alumnos[posResultado].nombre);
+        printf("Carrera: %s \n", alumnos[posResultado].carrera);
+        printf("Semestre: %s \n", alumnos[posResultado].semestre);
+        printf("Email: %s \n", alumnos[posResultado].email);
+        printf("\n\n");
+        
+        printf("¿Estás seguro que deseas modificar? 1) Sí 2) No");
+        scanf("%d", &op);
+        
+    }else{
+        printf("\nResultado:\n======================\n");
+        printf("No se ha encontrado ningún alumno con esa matrícula");
+        printf("\n\n");
+    }
+    
+    if(op==1){
+        struct Alumno alumno;
+    
+        printf("\nIngresar nuevos datos \n\nMatricula (número entero): ");
+        scanf("%d", &alumno.matricula);
+        printf("Alumno: ");
+        scanf(" %[^\n]s",alumno.nombre);
+        printf("Apellido paterno: ");
+        scanf(" %[^\n]s",alumno.apellido_p);
+        printf("Apellido materno: ");
+        scanf(" %[^\n]s",alumno.apellido_m);
+        printf("Carrera: ");
+        scanf(" %[^\n]s",alumno.carrera);
+        printf("Email: ");
+        scanf(" %[^\n]s",alumno.email);
+        printf("Semestre: ");
+        scanf(" %[^\n]s", alumno.semestre);
+        
+        alumnos[posResultado] = alumno;
+    }
+}
+
+
+void mostrarAlumnos(struct Alumno alumnos[n]){
+    printf("Mostrar alumnos\n");
+    
+    if(pos==0){
+        printf("No hay ningún alumno en la lista");
+    }
+    
+    for(int i = 0; i<pos; i++){
+        printf("==============\nAlumno: %d\n", 1+i);
+        
+        printf("matricula: %d \n", alumnos[i].matricula);
+        printf("Nombre: %s \n", alumnos[i].nombre);
+        printf("Apellido paterno: %s \n", alumnos[i].apellido_p);
+        printf("Apellido materno: %s \n", alumnos[i].nombre);
+        printf("Carrera: %s \n", alumnos[i].carrera);
+        printf("Semestre: %s \n", alumnos[i].semestre);
+        printf("Email: %s \n", alumnos[i].email);
+        
+        printf("\n");
+    }
 }
