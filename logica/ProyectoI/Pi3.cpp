@@ -30,6 +30,7 @@ int getAlumnoPorMatricula(struct Alumno alumnos[n], int matricula, int pos);
 void eliminarAlumno(struct Alumno alumnos[n], int);
 void modificar(struct Alumno alumnos[n]);
 void mostrarAlumnos(struct Alumno alumnos[n]);
+void buscar(struct Alumno alumnos[n]);
 
 void pausa();
 
@@ -53,6 +54,7 @@ int main()
                 scanf("%d", &matricula);
                 eliminarAlumno(alumnos, matricula);
                 printf("\n");
+                pausa();
                 break;
             case 3: 
                 modificar(alumnos);
@@ -64,23 +66,15 @@ int main()
                 break;
             case 5:
                 pantallaBusqueda();
-                scanf("%d", &matricula);
-                posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
-                
-                if(posResultado == -1){
-                    printf("No se ha encontrado :( \n");
-                    printf("********************\n");
-                }else{
-                    pantallaResultadosBusqueda(alumnos[posResultado]);
-                }
-                printf("\n");
-            
+                buscar(alumnos);
+                pausa();
                 break;
             case 6:
                 printf("Adios!");
                 break;
             default:
                 printf("\nHas elegido una opción no válida\n");
+                pausa();
         }
         
     }while(op!=6);
@@ -99,7 +93,7 @@ void pantallaInicio(){
     printf("* Catalogo de alumnos *\n");
     printf("***********************\n\n");
     
-    printf("Elige una opción: \n\n1) Agregar a un nuevo alumno \n2) Eliminar alumno \n3) Modificar alumno \n4) Mostrar todos los alumnos \n5) Buscar alumno \n5) Salir\n\n");
+    printf("Elige una opción: \n\n1) Agregar a un nuevo alumno \n2) Eliminar alumno \n3) Modificar alumno \n4) Mostrar todos los alumnos \n5) Buscar alumno \n6) Salir\n\n");
     
 }
 
@@ -109,7 +103,7 @@ void pantallaRegistro(){
 }
 
 void pantallaBusqueda(){
-    printf("******************\n");
+    printf("\n******************\n");
     printf("Busqueda de alumno: \n\nIngresa la matricula del alumno: ");
 }
 
@@ -270,6 +264,23 @@ void mostrarAlumnos(struct Alumno alumnos[n]){
         printf("\n");
     }
 }
+
+
+void buscar(struct Alumno alumnos[n]){
+    int matricula, posResultado;
+    pantallaBusqueda();
+    scanf("%d", &matricula);
+    posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
+    
+    if(posResultado == -1){
+        printf("No se ha encontrado :( \n");
+        printf("********************\n");
+    }else{
+        pantallaResultadosBusqueda(alumnos[posResultado]);
+    }
+    printf("\n");
+}
+
 
 void pausa(){
     cin.ignore();
