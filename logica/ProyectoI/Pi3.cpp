@@ -31,6 +31,8 @@ void eliminarAlumno(struct Alumno alumnos[n], int);
 void modificar(struct Alumno alumnos[n]);
 void mostrarAlumnos(struct Alumno alumnos[n]);
 
+void pausa();
+
 int main()
 {
     int op;
@@ -44,7 +46,7 @@ int main()
         switch(op){
             case 1:
                 agregarAlumno(alumnos, pos++);
-                printf("\n");
+                pausa();
                 break;
             case 2:
                 pantallaEliminar();
@@ -58,6 +60,7 @@ int main()
                 break;
             case 4:
                 mostrarAlumnos(alumnos);
+                pausa();
                 break;
             case 5:
                 pantallaBusqueda();
@@ -77,7 +80,7 @@ int main()
                 printf("Adios!");
                 break;
             default:
-                printf("Has elegido una opción no válida");
+                printf("\nHas elegido una opción no válida\n");
         }
         
     }while(op!=6);
@@ -247,7 +250,7 @@ void modificar(struct Alumno alumnos[n]){
 
 
 void mostrarAlumnos(struct Alumno alumnos[n]){
-    printf("Mostrar alumnos\n");
+    printf("\nMostrar alumnos\n");
     
     if(pos==0){
         printf("No hay ningún alumno en la lista");
@@ -266,4 +269,11 @@ void mostrarAlumnos(struct Alumno alumnos[n]){
         
         printf("\n");
     }
+}
+
+void pausa(){
+    cin.ignore();
+    printf("\nPreciona ENTER para continuar...\n");
+    char enter = 0;
+    while (enter != '\r' && enter != '\n') { enter = getchar(); }
 }
