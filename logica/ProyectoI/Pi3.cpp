@@ -195,7 +195,7 @@ void eliminarAlumno(struct Alumno alumnos[n], int matricula){
 void modificar(struct Alumno alumnos[n]){
     
     int matricula, op;
-    pantallaBusqueda();
+    printf("Modificar alumno\n*******************\nAgrega la matrícula del alumno:");
     scanf("%d", &matricula);
     int posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
     //pantallaModificar();
@@ -211,7 +211,7 @@ void modificar(struct Alumno alumnos[n]){
         printf("Email: %s \n", alumnos[posResultado].email);
         printf("\n\n");
         
-        printf("¿Estás seguro que deseas modificar? 1) Sí 2) No");
+        printf("¿Estás seguro que deseas modificar? 1) Sí 2) No: ");
         scanf("%d", &op);
         
     }else{
@@ -239,6 +239,8 @@ void modificar(struct Alumno alumnos[n]){
         scanf(" %[^\n]s", alumno.semestre);
         
         alumnos[posResultado] = alumno;
+    }else if(op==2){
+        printf("\nOpcion cancelada\n");
     }
 }
 
@@ -268,7 +270,6 @@ void mostrarAlumnos(struct Alumno alumnos[n]){
 
 void buscar(struct Alumno alumnos[n]){
     int matricula, posResultado;
-    pantallaBusqueda();
     scanf("%d", &matricula);
     posResultado = getAlumnoPorMatricula(alumnos, matricula, pos);
     
