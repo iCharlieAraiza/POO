@@ -58,6 +58,7 @@ int main()
                 break;
             case 3: 
                 modificar(alumnos);
+                pausa();
                 //Pausa
                 break;
             case 4:
