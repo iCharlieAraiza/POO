@@ -1,3 +1,3 @@
 # POO
 
-Randome example repo with all code
+Randome example repo with all code.
